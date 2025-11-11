@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load epreuve_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+  <div class="auth-box bg-white p-4 p-md-5 rounded-4 shadow-lg w-100" style="max-width: 500px;">
+    
+    <h2 class="auth-title text-center text-success mb-4 fw-bold">🔐 Réinitialiser le mot de passe</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field|add_class:"form-control" }}
+          {% if field.errors %}
+            <div class="form-text text-danger mt-1">{{ field.errors.0 }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn btn-success w-100 py-2 fw-semibold shadow-sm">Réinitialiser</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <a href="{% url 'comptes:connexion_view' %}" class="text-decoration-none text-primary">← Retour à la connexion</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  input.form-control {
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .btn-success:hover {
+    background-color: #146c43 !important;
+  }
+</style>
+{% endblock %}

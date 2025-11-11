@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">📚 Mes Épreuves Générées</h2>
+
+
+
+
+    <form method="get" class="row g-3 align-items-end mb-4">
+    <div class="col-md-5">
+        <label for="matiere" class="form-label">Filtrer par matière</label>
+        <select id="matiere" name="matiere" class="form-select">
+            <option value="">Toutes les matières</option>
+            {% for mat in matieres %}
+                <option value="{{ mat.id }}" {% if mat.id|stringformat:"s" == request.GET.matiere %}selected{% endif %}>
+                    {{ mat.nom }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-5">
+        <label for="trimestre" class="form-label">Filtrer par trimestre</label>
+        <select id="trimestre" name="trimestre" class="form-select">
+            <option value="">Tous les trimestres</option>
+            {% for tri in trimestres %}
+                <option value="{{ tri }}" {% if tri == request.GET.trimestre %}selected{% endif %}>
+                    {{ tri }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-funnel-fill"></i> Filtrer
+        </button>
+    </div>
+</form>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Matière</th>
+                    <th>Trimestre</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>PDF</th>
+                    
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for epreuve in page_obj %}
+                    <tr>
+                        <td>{{ epreuve.matiere.nom }}</td>  {# Assure-toi que l'objet `epreuve` a bien un champ `matiere` relié à un modèle avec `nom` #}
+                        <td>{{ epreuve.trimestre }}</td>
+                        <td>{{ epreuve.date_creation|date:"d/m/Y" }}</td>
+                        <td>{{ epreuve.date_creation|date:"H:i" }}</td>
+                        <td>
+                            {% if epreuve.fichier_pdf %}
+                                <a href="{{ epreuve.fichier_pdf.url }}" target="_blank" class="btn btn-outline-success btn-sm" title="Télécharger">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            {% else %}
+                                <span class="text-danger">Non généré</span>
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Aucune épreuve trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Bootstrap -->
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Précédent">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Suivant">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

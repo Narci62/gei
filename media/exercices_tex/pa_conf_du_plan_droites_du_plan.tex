@@ -1,0 +1,33 @@
+Observe la figure ci-dessous et indique pour chaque affirmation si elle est vraie ou fausse. \textbf{(0,5pt $\times$ 4)}
+
+\begin{minipage}{\linewidth}
+\begin{minipage}{0.6\textwidth}
+\begin{enumerate}
+  \item Les points A, M et N sont alignés.
+  \item A est le point d'intersection des droites (NM) et (BC).
+  \item B est un point du segment [AC].
+  \item A est le milieu du segment [BC].
+\end{enumerate}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{uququq}{rgb}{0.25098039215686274,0.25098039215686274,0.25098039215686274}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-2.,0.8) rectangle (4.,4.);
+\draw [line width=2.pt,domain=-2.:4.] plot(\x,{(-3.1344--2.16*\x)/1.16});
+\draw [line width=2.pt,domain=-2.:4.] plot(\x,{(-4.32-0.*\x)/-2.});
+\begin{scriptsize}
+\draw [fill=black] (2.16,1.32) circle (1.5pt);
+\draw[color=black] (1.78,1.51) node {$C$};
+\draw [fill=uququq] (3.32,3.48) circle (1.5pt);
+\draw[color=uququq] (3.,3.63) node {$B$};
+\draw [fill=black] (2.,2.16) circle (1.5pt);
+\draw[color=black] (1.96,2.49) node {$N$};
+\draw [fill=black] (0.,2.16) circle (1.5pt);
+\draw[color=black] (-0.04,2.45) node {$M$};
+\draw [fill=uuuuuu] (2.611111111111111,2.16) circle (1.5pt);
+\draw[color=uuuuuu] (2.64,1.91) node {$A$};
+\end{scriptsize}
+\end{tikzpicture}
+\end{minipage}
+\end{minipage}

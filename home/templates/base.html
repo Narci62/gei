@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 bg-dark text-white text-center" style="background: linear-gradient(135deg, #2e8b57, #3cb371);">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3">🎓 Générateur d'Épreuves Intelligent</h1>
+    <p class="lead mb-4">Créez automatiquement des épreuves prêtes à imprimer, enrichies de corrections et d'illustrations.</p>
+    <a href="#features" class="btn btn-outline-light btn-lg shadow-sm">🚀 Découvrir les fonctionnalités</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">✨ Fonctionnalités principales</h2>
+    <div class="row text-center g-4">
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <div class="fs-1 mb-3">🤖</div>
+          <h5 class="fw-bold">Génération Automatique</h5>
+          <p class="text-muted">Choisissez des thèmes et recevez des épreuves variées avec différents types de questions.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <div class="fs-1 mb-3">📚</div>
+          <h5 class="fw-bold">Leçons Adaptées</h5>
+          <p class="text-muted">Sélectionnez des leçons pertinentes correspondant aux thématiques pédagogiques.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 border rounded shadow-sm h-100">
+          <div class="fs-1 mb-3">📄</div>
+          <h5 class="fw-bold">Export PDF & Word</h5>
+          <p class="text-muted">Obtenez vos épreuves prêtes à imprimer en format PDF ou Word avec une mise en page professionnelle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Screenshots Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">🖼️ Aperçu de l'application</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <img src="{% static 'images/image1.png' %}" alt="Interface de création" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Création de l'épreuve</h5>
+            <p class="card-text text-muted">Interface intuitive pour la sélection des thèmes et types d'exercices.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <img src="{% static 'images/image2.png' %}" alt="PDF généré" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Épreuve générée en PDF</h5>
+            <p class="card-text text-muted">Un rendu final clair et professionnel prêt à être distribué aux élèves.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

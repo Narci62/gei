@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="alert alert-success">
+    Votre demande a été envoyée. Elle sera traitée sous peu.
+  </div>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Retour</a>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">💼 Abonnement mensuel — <strong>800 FCFA</strong></h4>
+        </div>
+        <div class="card-body">
+          <p class="mb-3">Veuillez effectuer le paiement via l’un des moyens ci-dessous, puis renseignez les informations demandées.</p>
+          
+          <!-- Logos côte à côte -->
+          <div class="row text-center mb-4">
+            <div class="col">
+              <img src="{% static 'images/flooz.jpeg' %}" alt="Flooz" width="60" class="mb-2">
+              <div><strong></strong> <span class="text-primary fw-bold">96 01 21 60</span></div>
+            </div>
+            <div class="col">
+              <img src="{% static 'images/Mixx.jpg' %}" alt="Mixx" width="60" class="mb-2">
+              <div><strong></strong> <span class="text-primary fw-bold">71 28 53 74</span></div>
+            </div>
+          </div>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="telephone" class="form-label">📱 Votre numéro</label>
+              <input type="text" name="telephone" required class="form-control" placeholder="Ex: 96xxxxxx">
+            </div>
+            <div class="mb-3">
+              <label for="reference" class="form-label">🔖 Référence du paiement</label>
+              <input type="text" name="reference" required class="form-control" placeholder="Référence Flooz/Mixx">
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">
+                🚀 Envoyer la demande d'abonnement
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

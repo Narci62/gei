@@ -1,0 +1,49 @@
+body {
+      background-image: url("{% static 'images/bg-sciences.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      background-color: rgba(0, 128, 0, 0.85); /* Vert avec transparence */
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-label {
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      width: 100%;
+    }
+
+    h2 {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input.form-control {
+      background-color: white;
+      color: black;
+    }
+
+    a {
+      color: #d4ffd4;
+    }
+
+    a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }

@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: "Arial", sans-serif; font-size: 14px; }
+    h2, h3 { text-align: center; }
+    .exercice { margin-top: 30px; }
+  </style>
+</head>
+<body>
+  {% block content %}
+  <h2>Épreuve de {{ exercice1.matiere.nom }}</h2>
+  <h3>Classe : {{ exercice1.classe.nom }}</h3>
+  <p><strong>Professeur :</strong> {{ professeur.get_full_name }}</p>
+  <p><strong>Date :</strong> {{ date_generation }}</p>
+
+  <div class="exercice">
+    <h3>Exercice 1 : Situation Problème</h3>
+    <p>Thème : {{ exercice1.theme.nom }} | Leçon : {{ exercice1.lecon.nom }}</p>
+    <p>{{ exercice1.intitule|safe }}</p>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 : Partie A - B - C</h3>
+    <p>Thème : {{ exercice2.theme.nom }} | Leçon : {{ exercice2.lecon.nom }}</p>
+    <p>{{ exercice2.intitule|safe }}</p>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 : Exercice Traditionnel</h3>
+    <p>Thème : {{ exercice3.theme.nom }} | Leçon : {{ exercice3.lecon.nom }}</p>
+    <p>{{ exercice3.intitule|safe }}</p>
+  </div>
+  {% endblock %}
+</body>
+</html>
+
+

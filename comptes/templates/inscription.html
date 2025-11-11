@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load epreuve_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
+  <div class="container-custom bg-white p-4 p-md-5 rounded-4 shadow-lg" style="max-width: 500px; width: 100%;">
+    
+    <h2 class="text-center mb-4 fw-bold text-success">📝 Créez votre compte</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+      <div class="alert alert-danger">Veuillez corriger les erreurs ci-dessous.</div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field|add_class:"form-control" }}
+          {% if field.errors %}
+            <div class="form-text text-danger">{{ field.errors.0 }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="d-grid gap-3 mt-4">
+        <button type="submit" class="btn btn-success btn-lg shadow-sm fw-semibold">✅ S'inscrire</button>
+        <a href="{% url 'comptes:connexion_view' %}" class="btn btn-outline-primary btn-lg shadow-sm">🔐 Se connecter</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  input.form-control, select.form-select, textarea.form-control {
+    background-color: #fff;
+    color: #212529;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+
+  .container-custom {
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}

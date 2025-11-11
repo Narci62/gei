@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">📩 Demandes d’abonnement</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>👤 Professeur</th>
+              <th>📱 Téléphone</th>
+              <th>🧾 Référence</th>
+              <th>📅 Date</th>
+              <th>⚙️ Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for demande in demandes %}
+              <tr>
+                <td>{{ demande.professeur }}</td>
+                <td>{{ demande.telephone }}</td>
+                <td>{{ demande.reference }}</td>
+                <td>{{ demande.date_demande|date:"d/m/Y H:i" }}</td>
+                <td>
+                  <a href="{% url 'comptes:activer_abonnement' demande.id %}" class="btn btn-success btn-sm">
+                    ✅ Activer
+                  </a>
+                  <a href="{% url 'comptes:rejeter_abonnement' demande.id %}" class="btn btn-danger btn-sm">
+                    ❌ Annuler
+                  </a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="text-center text-muted">Aucune demande en attente</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

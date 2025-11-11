@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load epreuve_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 100vh;">
+  <div class="container-custom bg-white p-4 p-md-5 rounded-4 shadow-lg" style="max-width: 450px; width: 100%;">
+
+    <h2 class="text-center mb-4 fw-bold text-primary">🔐 Connexion</h2>
+
+    {% if form.errors %}
+      <div class="alert alert-danger">Identifiants invalides. Veuillez réessayer.</div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field|add_class:"form-control" }}
+          {% if field.errors %}
+            <div class="form-text text-danger">{{ field.errors.0 }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm">Se connecter</button>
+      </div>
+    </form>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'comptes:inscription_view' %}" class="btn btn-outline-primary btn-sm">📝 S'inscrire</a>
+      <a href="{% url 'comptes:mot_de_passe_oublie_view' %}" class="btn btn-outline-secondary btn-sm">❓ Mot de passe oublié ?</a>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  input.form-control {
+    background-color: #fff;
+    color: #212529;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+  }
+
+  .container-custom {
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}

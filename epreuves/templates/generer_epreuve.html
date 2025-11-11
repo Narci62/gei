@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load epreuve_tags %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg" style="max-width: 800px; margin: auto;">
+    
+    <h2 class="text-center text-primary fw-bold mb-4">📝 Générer une épreuve</h2>
+
+    {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} mt-2">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+    {% if error_message %}
+      <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3">
+        <label for="{{ form.matiere.id_for_label }}" class="form-label">{{ form.matiere.label }}</label>
+        {{ form.matiere|add_class:"form-select" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.classe.id_for_label }}" class="form-label">{{ form.classe.label }}</label>
+        {{ form.classe|add_class:"form-select" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.trimestre.id_for_label }}" class="form-label">{{ form.trimestre.label }}</label>
+        {{ form.trimestre|add_class:"form-select" }}
+      </div>
+
+      <fieldset class="mb-4 border p-3 rounded">
+        <legend class="h6">🎯 Choisissez entre <strong>1 et 3</strong> thèmes :</legend>
+        {{ form.themes }}
+        {% if form.themes.errors %}
+          <div class="text-danger mt-1">{{ form.themes.errors.0 }}</div>
+        {% endif %}
+      </fieldset>
+
+      <fieldset class="mb-4 border p-3 rounded">
+        <legend class="h6">📘 Choisissez entre <strong>2 et 4</strong> leçons :</legend>
+        <div id="lecon-list" class="form-check">
+          <p class="text-muted">Veuillez d'abord sélectionner un ou plusieurs thèmes.</p>
+        </div>
+      </fieldset>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success fw-bold">🚀 Générer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+  function updateLecons() {
+    let themeIds = [];
+    $('input[name="themes"]:checked').each(function () {
+      themeIds.push($(this).val());
+    });
+
+    let trimestreId = $('select[name="trimestre"]').val();
+    let leconList = $('#lecon-list');
+    leconList.empty();
+
+    if (themeIds.length > 0 && trimestreId) {
+      $.ajax({
+        url: "{% url 'get_lecons_by_themes' %}",
+        data: {
+          'theme_ids[]': themeIds,
+          'trimestre': trimestreId
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.length === 0) {
+            leconList.append('<p class="text-danger">Aucune leçon trouvée.</p>');
+          } else {
+            data.forEach(function (lecon) {
+              leconList.append(
+                '<div class="form-check">' +
+                  '<input class="form-check-input" type="checkbox" name="lecons" value="' + lecon.id + '" id="lecon_' + lecon.id + '">' +
+                  '<label class="form-check-label" for="lecon_' + lecon.id + '">' + lecon.nom + '</label>' +
+                '</div>'
+              );
+            });
+          }
+        },
+        error: function () {
+          leconList.append('<p class="text-danger">Erreur lors du chargement.</p>');
+        }
+      });
+    } else {
+      leconList.html('<p class="text-muted">Veuillez d’abord choisir au moins un thème et un trimestre.</p>');
+    }
+  }
+
+  $('input[name="themes"], select[name="trimestre"]').on('change', updateLecons);
+  updateLecons();
+});
+</script>
+{% endblock %}
